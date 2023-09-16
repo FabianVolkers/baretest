@@ -3,8 +3,10 @@ const rgb = require('barecolor')
 
 module.exports = function(headline) {
   const suite = [],
-    before = [],
-    after = [],
+    beforeEach = [],
+    beforeAll = [],
+    afterEach = [],
+    afterAll = [],
     only = []
 
   function self(name, fn) {
@@ -15,8 +17,10 @@ module.exports = function(headline) {
     only.push({ name: name, fn: fn })
   }
 
-  self.before = function(fn) { before.push(fn) }
-  self.after = function(fn) { after.push(fn)  }
+  self.beforeEach = function(fn) { beforeEach.push(fn) }
+  self.beforeAll = function(fn) { beforeAll.push(fn) }
+  self.afterEach = function (fn) { afterEach.push(fn) }
+  self.afterAll = function(fn) { afterAll.push(fn)  }
   self.skip = function(fn) {}
 
   self.run = async function() {
@@ -24,21 +28,25 @@ module.exports = function(headline) {
 
     rgb.cyan(headline + ' ')
 
+    for (const fn of beforeAll) await fn()
+
     for (const test of tests) {
       try {
-        for (const fn of before) await fn()
+        for (const fn of beforeEach) await fn()
         await test.fn()
         rgb.gray('• ')
 
       } catch(e) {
-        for (const fn of after) await fn()
+        for (const fn of afterAll) await fn()
         rgb.red(`\n\n! ${test.name} \n\n`)
         prettyError(e)
         return false
+      } finally {
+        for (const fn of afterEach) await fn()
       }
     }
 
-    for (const fn of after) await fn()
+    for (const fn of afterAll) await fn()
     rgb.greenln(`✓ ${ tests.length }`)
     console.info('\n')
     return true
