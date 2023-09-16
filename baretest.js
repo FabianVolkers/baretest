@@ -33,6 +33,7 @@ module.exports = function(headline) {
     } catch(e) {
       for (const fn of afterAll) await fn()
       prettyError(e)
+      return false
   }
     
 
@@ -48,11 +49,23 @@ module.exports = function(headline) {
         prettyError(e)
         return false
       } finally {
-        for (const fn of afterEach) await fn()
+        for (const fn of afterEach) {
+          try { 
+            await fn()
+          } catch(e) {
+            prettyError(e)
+          }
       }
     }
+  }
 
-    for (const fn of afterAll) await fn()
+    for (const fn of afterAll) {
+      try { 
+        await fn()
+      } catch(e) {
+        prettyError(e)
+      }
+    }
     rgb.greenln(`✓ ${ tests.length }`)
     console.info('\n')
     return true
@@ -71,4 +84,3 @@ function prettyError(e) {
   rgb.yellowln(msg.slice(0, i))
   rgb.gray(msg.slice(i))
 }
-
