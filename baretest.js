@@ -1,7 +1,7 @@
 
 const rgb = require('barecolor')
 
-module.exports = function(headline) {
+module.exports = function (headline) {
   const suite = [],
     beforeEach = [],
     beforeAll = [],
@@ -10,32 +10,32 @@ module.exports = function(headline) {
     only = []
 
   function self(name, fn) {
-    suite.push({ name: name, fn: fn })
+    suite.push({ name: name, fn: fn })
   }
 
-  self.only = function(name, fn) {
+  self.only = function (name, fn) {
     only.push({ name: name, fn: fn })
   }
 
-  self.beforeEach = function(fn) { beforeEach.push(fn) }
-  self.beforeAll = function(fn) { beforeAll.push(fn) }
+  self.beforeEach = function (fn) { beforeEach.push(fn) }
+  self.beforeAll = function (fn) { beforeAll.push(fn) }
   self.afterEach = function (fn) { afterEach.push(fn) }
-  self.afterAll = function(fn) { afterAll.push(fn)  }
-  self.skip = function(fn) {}
+  self.afterAll = function (fn) { afterAll.push(fn) }
+  self.skip = function (fn) { }
 
-  self.run = async function() {
+  self.run = async function () {
     const tests = only[0] ? only : suite
 
     rgb.cyan(headline + ' ')
 
     try {
       for (const fn of beforeAll) await fn()
-    } catch(e) {
+    } catch (e) {
       for (const fn of afterAll) await fn()
       prettyError(e)
       return false
-  }
-    
+    }
+
 
     for (const test of tests) {
       try {
@@ -43,30 +43,30 @@ module.exports = function(headline) {
         await test.fn()
         rgb.gray('• ')
 
-      } catch(e) {
+      } catch (e) {
         for (const fn of afterAll) await fn()
         rgb.red(`\n\n! ${test.name} \n\n`)
         prettyError(e)
         return false
       } finally {
         for (const fn of afterEach) {
-          try { 
+          try {
             await fn()
-          } catch(e) {
+          } catch (e) {
             prettyError(e)
           }
+        }
       }
     }
-  }
 
     for (const fn of afterAll) {
-      try { 
+      try {
         await fn()
-      } catch(e) {
+      } catch (e) {
         prettyError(e)
       }
     }
-    rgb.greenln(`✓ ${ tests.length }`)
+    rgb.greenln(`✓ ${tests.length}`)
     console.info('\n')
     return true
   }
