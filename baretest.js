@@ -28,7 +28,13 @@ module.exports = function(headline) {
 
     rgb.cyan(headline + ' ')
 
-    for (const fn of beforeAll) await fn()
+    try {
+      for (const fn of beforeAll) await fn()
+    } catch(e) {
+      for (const fn of afterAll) await fn()
+      prettyError(e)
+  }
+    
 
     for (const test of tests) {
       try {
