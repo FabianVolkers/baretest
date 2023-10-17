@@ -1,12 +1,12 @@
 
-const rgb = require('barecolor')
+import rgb from 'barecolor';
 
 interface Suite {
   name: string
   fn: Function
 }
 
-module.exports = function (headline: string) {
+export function baretest (headline: string) {
   const suite: Suite[] = [],
     beforeEach: Function[] = [],
     beforeAll: Function[] = [],
@@ -83,7 +83,7 @@ module.exports = function (headline: string) {
 
 function prettyError(e: unknown) {
   const msg = e instanceof Error ? e.stack : null
-  if (!msg) return rgb.yellow(e)
+  if (!msg) return rgb.yellow(e as string)
 
   const i = msg.indexOf('\n')
   rgb.yellowln(msg.slice(0, i))
