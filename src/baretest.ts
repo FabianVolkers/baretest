@@ -2,38 +2,40 @@ import rgb from "barecolor";
 
 interface Suite {
   name: string;
-  fn: Function;
+  fn: () => void;
 }
 
 export function baretest(headline: string) {
   const suite: Suite[] = [],
-    beforeEach: Function[] = [],
-    beforeAll: Function[] = [],
-    afterEach: Function[] = [],
-    afterAll: Function[] = [],
+    beforeEach: Array<() => void> = [],
+    beforeAll: Array<() => void> = [],
+    afterEach: Array<() => void> = [],
+    afterAll: Array<() => void> = [],
     only: Suite[] = [];
 
-  function self(name: string, fn: Function) {
+  function self(name: string, fn: () => void) {
     suite.push({ name: name, fn: fn });
   }
 
-  self.only = function (name: string, fn: Function) {
+  self.only = function (name: string, fn: () => void) {
     only.push({ name: name, fn: fn });
   };
 
-  self.beforeEach = function (fn: Function) {
+  self.beforeEach = function (fn: () => void) {
     beforeEach.push(fn);
   };
-  self.beforeAll = function (fn: Function) {
+  self.beforeAll = function (fn: () => void) {
     beforeAll.push(fn);
   };
-  self.afterEach = function (fn: Function) {
+  self.afterEach = function (fn: () => void) {
     afterEach.push(fn);
   };
-  self.afterAll = function (fn: Function) {
+  self.afterAll = function (fn: () => void) {
     afterAll.push(fn);
   };
-  self.skip = function (fn: Function) {};
+  self.skip = function (fn: () => void) {
+    console.log("Skipping: " + fn.name);
+  };
 
   self.run = async function () {
     const tests = only[0] ? only : suite;
