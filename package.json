@@ -1,5 +1,5 @@
 {
-  "name": "baretest",
+  "name": "@FabianVolkers/baretest",
   "description": "Extremely fast and simple JavaScript test runner",
   "keywords": [
     "jest",
