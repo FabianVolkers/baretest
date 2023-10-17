@@ -1,27 +1,32 @@
 
 const rgb = require('barecolor')
 
-module.exports = function (headline) {
-  const suite = [],
-    beforeEach = [],
-    beforeAll = [],
-    afterEach = [],
-    afterAll = [],
-    only = []
+interface Suite {
+  name: string
+  fn: Function
+}
 
-  function self(name, fn) {
+module.exports = function (headline: string) {
+  const suite: Suite[] = [],
+    beforeEach: Function[] = [],
+    beforeAll: Function[] = [],
+    afterEach: Function[] = [],
+    afterAll: Function[] = [],
+    only: Suite[] = []
+
+  function self(name: string, fn: Function) {
     suite.push({ name: name, fn: fn })
   }
 
-  self.only = function (name, fn) {
+  self.only = function (name: string, fn: Function) {
     only.push({ name: name, fn: fn })
   }
 
-  self.beforeEach = function (fn) { beforeEach.push(fn) }
-  self.beforeAll = function (fn) { beforeAll.push(fn) }
-  self.afterEach = function (fn) { afterEach.push(fn) }
-  self.afterAll = function (fn) { afterAll.push(fn) }
-  self.skip = function (fn) { }
+  self.beforeEach = function (fn: Function) { beforeEach.push(fn) }
+  self.beforeAll = function (fn: Function) { beforeAll.push(fn) }
+  self.afterEach = function (fn: Function) { afterEach.push(fn) }
+  self.afterAll = function (fn: Function) { afterAll.push(fn) }
+  self.skip = function (fn: Function) { }
 
   self.run = async function () {
     const tests = only[0] ? only : suite
@@ -76,8 +81,8 @@ module.exports = function (headline) {
 }
 
 
-function prettyError(e) {
-  const msg = e.stack
+function prettyError(e: unknown) {
+  const msg = e instanceof Error ? e.stack : null
   if (!msg) return rgb.yellow(e)
 
   const i = msg.indexOf('\n')
