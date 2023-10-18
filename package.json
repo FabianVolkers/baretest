@@ -1,5 +1,5 @@
 {
-  "name": "baretest",
+  "name": "@FabianVolkers/baretest",
   "description": "Extremely fast and simple JavaScript test runner",
   "keywords": [
     "jest",
@@ -16,14 +16,29 @@
   ],
   "logo": "https://volument.com/blog/img/baretest/logomark-big.png",
   "homepage": "https://volument.com/baretest",
-  "repository": "FabianVolkers/baretest",
-  "main": "baretest",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FabianVolkers/baretest.git"
+  },
+  "main": "dist/baretest.js",
+  "types": "dist/baretest.d.ts",
+  "files": [
+    "dist"
+  ],
   "version": "3.0.2",
   "license": "MIT",
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "build": "yarn run tsc"
   },
   "dependencies": {
     "barecolor": "1.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.51.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   }
 }
