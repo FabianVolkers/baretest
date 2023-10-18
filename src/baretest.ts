@@ -5,7 +5,7 @@ interface Suite {
   fn: () => void;
 }
 
-export function baretest(headline: string) {
+export default function baretest(headline: string) {
   const suite: Suite[] = [],
     beforeEach: Array<() => void> = [],
     beforeAll: Array<() => void> = [],
