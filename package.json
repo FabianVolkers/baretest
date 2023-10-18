@@ -1,6 +1,7 @@
 {
   "name": "@FabianVolkers/baretest",
   "description": "Extremely fast and simple JavaScript test runner",
+  "type": "module",
   "keywords": [
     "jest",
     "mocha",
