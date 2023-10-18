@@ -1,7 +1,9 @@
+import assert from 'assert';
+import baretest from '@FabianVolkers/baretest';
+import process from 'process';
 
 // Tests for Baretest
-const test = require('..')('test'),
-  assert = require('assert')
+const test = baretest('test')
 
 let count = 0
 
@@ -9,7 +11,7 @@ function incr() {
   count++
 }
 
-test.before(incr)
+test.beforeAll(incr)
 
 test('A', incr)
 

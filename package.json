@@ -30,7 +30,7 @@
   "license": "MIT",
   "scripts": {
     "ci": "yarn install --frozen-lockfile",
-    "test": "node test",
+    "test": "yarn link && yarn link @FabianVolkers/baretest && node test",
     "build": "yarn run tsc"
   },
   "dependencies": {
