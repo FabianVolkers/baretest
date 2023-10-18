@@ -21,6 +21,10 @@
     "url": "git+https://github.com/FabianVolkers/baretest.git"
   },
   "main": "dist/baretest.js",
+  "types": "dist/baretest.d.ts",
+  "files": [
+    "dist"
+  ],
   "version": "3.0.2",
   "license": "MIT",
   "scripts": {
