@@ -28,6 +28,7 @@
   "version": "4.0.0",
   "license": "MIT",
   "scripts": {
+    "ci": "yarn install --frozen-lockfile",
     "test": "node test",
     "build": "yarn run tsc"
   },
