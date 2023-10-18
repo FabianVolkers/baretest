@@ -29,7 +29,7 @@
   "license": "MIT",
   "scripts": {
     "test": "node test",
-    "build": "yarn run tsc --module system"
+    "build": "yarn run tsc"
   },
   "dependencies": {
     "barecolor": "1.0.1"
