@@ -1,5 +1,5 @@
 import assert from 'assert';
-import baretest from '@FabianVolkers/baretest';
+import baretest from '@fabianvolkers/baretest';
 import process from 'process';
 
 // Tests for Baretest

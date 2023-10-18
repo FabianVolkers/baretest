@@ -1,5 +1,5 @@
 {
-  "name": "@FabianVolkers/baretest",
+  "name": "@fabianvolkers/baretest",
   "description": "Extremely fast and simple JavaScript test runner",
   "type": "module",
   "keywords": [
@@ -30,7 +30,7 @@
   "license": "MIT",
   "scripts": {
     "ci": "yarn install --frozen-lockfile",
-    "test": "yarn link && yarn link @FabianVolkers/baretest && node test",
+    "test": "yarn link && yarn link @fabianvolkers/baretest && node test",
     "build": "yarn run tsc"
   },
   "dependencies": {
