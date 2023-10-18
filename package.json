@@ -20,12 +20,12 @@
     "type": "git",
     "url": "git+https://github.com/FabianVolkers/baretest.git"
   },
-  "main": "baretest",
+  "main": "dist/baretest.js",
   "version": "3.0.2",
   "license": "MIT",
   "scripts": {
     "test": "node test",
-    "build": "esbuild src/baretest.ts --platform=node --outfile=dist/baretest.js"
+    "build": "yarn run tsc --module system"
   },
   "dependencies": {
     "barecolor": "1.0.1"
